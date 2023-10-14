@@ -101,13 +101,11 @@ def telephone_status(filename: str) -> dict:
 
 
 # add sums for Main lines (busy, na)
-def write_file(output_dict: dict) -> None:
-    output_folder = os.path.join(os.pardir, "output")
-    output_file_name = input("Please enter filename to put results into: ")
-    output_full_path = os.path.join(output_folder, output_file_name)
+def write_file(output_dict: dict, filename: str) -> None:
+    output_file_name = f"result_{filename}"
     json_data = json.dumps(output_dict, indent=4)
 
-    with open(output_full_path, "w") as output_file:
+    with open(output_file_name, "w") as output_file:
         output_file.write(json_data)
 
-    print(f"Success. Please check {output_full_path}")
+    print(f"Success. Please check {output_file_name}")
