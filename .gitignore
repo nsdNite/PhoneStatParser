@@ -1,0 +1,10 @@
+result_1.txt
+sample_2023.txt
+sample_sept.txt
+result_output.txt
+temp.txt
+1.txt
+__pycache__/
+build/
+dist/
+main.spec
