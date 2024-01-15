@@ -1,6 +1,7 @@
 import json
 import re
-import os
+
+from constants import LINES_TO_EXCLUDE
 
 pattern_tel = r"\b\d{8}\b"
 pattern_line = r"Status: (.*?)(?=/)"
@@ -15,13 +16,10 @@ def telephone_status(filename: str) -> dict:
 
     # Removing unnecessary lines:
     temp_file = "temp.txt"
-    words_to_exclude = [
-        "Notifier",
-        "No new voice mail"
-    ]
+
     with open(filename, "r") as file, open(temp_file, "w") as output:
         for line in file:
-            if not any(word in line for word in words_to_exclude):
+            if not any(word in line for word in LINES_TO_EXCLUDE):
                 output.write(line)
 
     # Parse the file:
@@ -59,12 +57,9 @@ def telephone_status(filename: str) -> dict:
             # Searching for answered calls
             if "dialRR" in current_line and "to Play CID" in next_line:
                 match_answered = re.search(pattern_answered, current_line)
-                print(f"{match_answered=}")
                 if match_answered:
                     answered_phone = match_answered.group()
-                    print(f"{answered_phone=}")
                 match_ans_line = re.search(pattern_answered_line, answered_status_line)
-                print(f"{match_ans_line=}")
                 answered_line = match_ans_line.group(1)
                 if answered_line == "CALLTR0":
                     answered_line = "Main Line"
