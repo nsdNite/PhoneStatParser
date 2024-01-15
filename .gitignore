@@ -186,3 +186,4 @@ dist/
 main.spec
 .idea
 .idea/
+*venv
