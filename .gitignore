@@ -187,3 +187,4 @@ main.spec
 .idea
 .idea/
 *venv
+*.txt

@@ -59,16 +59,18 @@ def telephone_status(filename: str) -> dict:
                 match_answered = re.search(pattern_answered, current_line)
                 if match_answered:
                     answered_phone = match_answered.group()
+
                 match_ans_line = re.search(
                     pattern_answered_line,
                     answered_status_line
                 )
-                answered_line = match_ans_line.group(1)
-                if answered_line == "CALLTR0":
-                    answered_line = "Main Line"
-                if answered_line == "CALLTR01":
-                    answered_line = "Backup Line"
-                statuses.append(f"{answered_phone} {answered_line} answered")
+                if match_ans_line:
+                    answered_line = match_ans_line.group(1)
+                    if answered_line == "CALLTR0":
+                        answered_line = "Main Line"
+                    if answered_line == "CALLTR01":
+                        answered_line = "Backup Line"
+                    statuses.append(f"{answered_phone} {answered_line} answered")
 
             # Searching for "user hang up":
             counter_hang = 0
